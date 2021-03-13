@@ -3,9 +3,9 @@ package client
 import (
 	"time"
 
-	"github.com/KLYE-Dev/hiverpc.go/api"
-	"github.com/KLYE-Dev/hiverpc.go/transactions"
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/api"
+	"github.com/KLYE-Dev/hiverpc-go/transactions"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 )
 
 //BResp of response when sending a transaction.

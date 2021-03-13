@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //ChangeRecoveryAccountOperation represents change_recovery_account operation data.

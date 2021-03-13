@@ -3,8 +3,8 @@ package client
 import (
 	"strconv"
 
-	"github.com/KLYE-Dev/hiverpc.go/transactions"
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/transactions"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 )
 
 //SetAsset returns data of type Asset

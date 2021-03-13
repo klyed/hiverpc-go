@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/json"
 
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //CommentOptionsOperation represents comment_options operation data.

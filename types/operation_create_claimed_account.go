@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //CreateClaimedAccountOperation represents create_claimed_account operation data.

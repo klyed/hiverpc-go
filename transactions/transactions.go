@@ -7,7 +7,7 @@ import (
 	"encoding/hex"
 
 	// RPC
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 
 	// Vendor
 	"github.com/pkg/errors"

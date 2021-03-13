@@ -11,7 +11,7 @@ import (
 
 	"time"
 
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 	"github.com/pkg/errors"
 )
 

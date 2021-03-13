@@ -3,10 +3,10 @@ package client
 import (
 	"net/url"
 
-	"github.com/KLYE-Dev/hiverpc.go/api"
-	"github.com/KLYE-Dev/hiverpc.go/transports"
-	"github.com/KLYE-Dev/hiverpc.go/transports/http"
-	"github.com/KLYE-Dev/hiverpc.go/transports/websocket"
+	"github.com/KLYE-Dev/hiverpc-go/api"
+	"github.com/KLYE-Dev/hiverpc-go/transports"
+	"github.com/KLYE-Dev/hiverpc-go/transports/http"
+	"github.com/KLYE-Dev/hiverpc-go/transports/websocket"
 	"github.com/pkg/errors"
 )
 

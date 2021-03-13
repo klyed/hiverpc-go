@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //SetWithdrawVestingRouteOperation represents set_withdraw_vesting_route operation data.

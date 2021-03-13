@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //ChainProperties is an additional structure used by other structures.

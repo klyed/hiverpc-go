@@ -2,15 +2,15 @@
  Experimental HIVE RPC Interface in GO
  # asuleymanov/steem-go
 
- [![GoDoc](https://godoc.org/github.com/KLYE-Dev/hiverpc.go?status.svg)](https://godoc.org/github.com/KLYE-Dev/hiverpc.go)
- [![Go Report Card](https://goreportcard.com/badge/github.com/KLYE-Dev/hiverpc.go)](https://goreportcard.com/report/github.com/KLYE-Dev/hiverpc.go)
+ [![GoDoc](https://godoc.org/github.com/KLYE-Dev/hiverpc-go?status.svg)](https://godoc.org/github.com/KLYE-Dev/hiverpc-go)
+ [![Go Report Card](https://goreportcard.com/badge/github.com/KLYE-Dev/hiverpc-go)](https://goreportcard.com/report/github.com/KLYE-Dev/hiverpc-go)
 
  Golang RPC client library for [Steem](https://steemit.com).
 
  ## Usage
 
  ```go
- import "github.com/KLYE-Dev/hiverpc.go"
+ import "github.com/KLYE-Dev/hiverpc-go"
  ```
 
 

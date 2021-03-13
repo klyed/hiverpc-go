@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 )
 
 //network_broadcast_api

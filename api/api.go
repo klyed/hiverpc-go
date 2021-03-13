@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/KLYE-Dev/hiverpc.go/transports"
+	"github.com/KLYE-Dev/hiverpc-go/transports"
 )
 
 //API plug-in structure

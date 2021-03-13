@@ -8,7 +8,7 @@ import (
 	//"log"
 	"math/big"
 
-	"github.com/KLYE-Dev/hiverpc.go/transactions/rfc6979"
+	"github.com/KLYE-Dev/hiverpc-go/transactions/rfc6979"
 	secp256k1 "github.com/btcsuite/btcd/btcec"
 	"github.com/pkg/errors"
 )

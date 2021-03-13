@@ -3,7 +3,7 @@ package types
 import (
 	"errors"
 
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 // Transaction represents a blockchain transaction.

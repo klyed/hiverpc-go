@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/KLYE-Dev/hiverpc.go/transports"
-	_ "github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/transports"
+	_ "github.com/KLYE-Dev/hiverpc-go/types"
 )
 
 //GetConfig api request get_config

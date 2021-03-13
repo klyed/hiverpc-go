@@ -1,8 +1,8 @@
 package client
 
 import (
-	"github.com/KLYE-Dev/hiverpc.go/encoding/wif"
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/wif"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 	"github.com/pkg/errors"
 )
 

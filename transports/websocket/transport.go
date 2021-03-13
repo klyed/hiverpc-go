@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/KLYE-Dev/hiverpc.go/types"
+	"github.com/KLYE-Dev/hiverpc-go/types"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 )

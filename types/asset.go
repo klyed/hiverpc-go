@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 //Asset type from parameter JSON

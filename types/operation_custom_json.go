@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/KLYE-Dev/hiverpc.go/encoding/transaction"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 	"github.com/pkg/errors"
 )
 

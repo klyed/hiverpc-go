@@ -8,7 +8,7 @@ import (
 type ChainProperties struct {
 	AccountCreationFee *Asset `json:"account_creation_fee"`
 	MaximumBlockSize   uint32 `json:"maximum_block_size"`
-	SbdInterestRate    uint16 `json:"sbd_interest_rate"`
+	HbdInterestRate    uint16 `json:"hbd_interest_rate"`
 }
 
 //MarshalTransaction is a function of converting type ChainProperties to bytes.
@@ -16,6 +16,6 @@ func (cp *ChainProperties) MarshalTransaction(encoder *transaction.Encoder) erro
 	enc := transaction.NewRollingEncoder(encoder)
 	enc.Encode(cp.AccountCreationFee)
 	enc.Encode(cp.MaximumBlockSize)
-	enc.Encode(cp.SbdInterestRate)
+	enc.Encode(cp.HbdInterestRate)
 	return enc.Err()
 }

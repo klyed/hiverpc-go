@@ -25,7 +25,7 @@ var customJSONDataObjects = map[string]interface{}{
 	TypePrivateMessage: &PrivateMessageOperation{},
 }
 
-// FC_REFLECT( steemit::chain::custom_json_operation,
+// FC_REFLECT( hiveit::chain::custom_json_operation,
 //             (required_auths)
 //             (required_posting_auths)
 //             (id)

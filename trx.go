@@ -17,7 +17,7 @@ type BResp struct {
 	JSONTrx  string
 }
 
-//SendTrx generates and sends an array of transactions to STEEM.
+//SendTrx generates and sends an array of transactions to HIVE.
 func (client *Client) SendTrx(username string, strx []types.Operation) (*BResp, error) {
 	var bresp BResp
 

@@ -14,8 +14,8 @@ var (
 	ErrInitializeTransport = errors.New("Failed to initialize transport.")
 )
 
-// Client can be used to access STEEM remote APIs.
-// There is a public field for every STEEM API available,
+// Client can be used to access HIVE remote APIs.
+// There is a public field for every HIVE API available,
 // e.g. Client.Database corresponds to database_api.
 type Client struct {
 	cc transports.CallCloser

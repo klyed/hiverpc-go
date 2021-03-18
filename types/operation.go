@@ -2,7 +2,6 @@ package types
 
 import (
 	// Stdlib
-	"bytes"
 	"encoding/json"
 	"reflect"
 
@@ -13,62 +12,37 @@ import (
 // dataObjects keeps mapping operation type -> operation data object.
 // This is used later on to unmarshal operation data based on the operation type.
 var dataObjects = map[OpType]Operation{
-	TypeVote:                        &VoteOperation{},
-	TypeComment:                     &CommentOperation{},
-	TypeTransfer:                    &TransferOperation{},
-	TypeTransferToVesting:           &TransferToVestingOperation{},
-	TypeWithdrawVesting:             &WithdrawVestingOperation{},
-	TypeLimitOrderCreate:            &LimitOrderCreateOperation{},
-	TypeLimitOrderCancel:            &LimitOrderCancelOperation{},
-	TypeFeedPublish:                 &FeedPublishOperation{},
-	TypeConvert:                     &ConvertOperation{},
-	TypeAccountCreate:               &AccountCreateOperation{},
-	TypeAccountUpdate:               &AccountUpdateOperation{},
-	TypeWitnessUpdate:               &WitnessUpdateOperation{},
-	TypeAccountWitnessVote:          &AccountWitnessVoteOperation{},
-	TypeAccountWitnessProxy:         &AccountWitnessProxyOperation{},
-	TypePOW:                         &POWOperation{},
-	TypeCustom:                      &CustomOperation{},
-	TypeReportOverProduction:        &ReportOverProductionOperation{},
-	TypeDeleteComment:               &DeleteCommentOperation{},
-	TypeCustomJSON:                  &CustomJSONOperation{},
-	TypeCommentOptions:              &CommentOptionsOperation{},
-	TypeSetWithdrawVestingRoute:     &SetWithdrawVestingRouteOperation{},
-	TypeLimitOrderCreate2:           &LimitOrderCreate2Operation{},
-	TypeClaimAccount:                &ClaimAccountOperation{},
-	TypeCreateClaimedAccount:        &CreateClaimedAccountOperation{},
-	TypeRequestAccountRecovery:      &RequestAccountRecoveryOperation{},
-	TypeRecoverAccount:              &RecoverAccountOperation{},
-	TypeChangeRecoveryAccount:       &ChangeRecoveryAccountOperation{},
-	TypeEscrowTransfer:              &EscrowTransferOperation{},
-	TypeEscrowDispute:               &EscrowDisputeOperation{},
-	TypeEscrowRelease:               &EscrowReleaseOperation{},
-	TypePOW2:                        &POW2Operation{},
-	TypeEscrowApprove:               &EscrowApproveOperation{},
-	TypeTransferToSavings:           &TransferToSavingsOperation{},
-	TypeTransferFromSavings:         &TransferFromSavingsOperation{},
-	TypeCancelTransferFromSavings:   &CancelTransferFromSavingsOperation{},
-	TypeCustomBinary:                &CustomBinaryOperation{},
-	TypeDeclineVotingRights:         &DeclineVotingRightsOperation{},
-	TypeResetAccount:                &ResetAccountOperation{},
-	TypeSetResetAccount:             &SetResetAccountOperation{},
-	TypeClaimRewardBalance:          &ClaimRewardBalanceOperation{},
-	TypeDelegateVestingShares:       &DelegateVestingSharesOperation{},
-	TypeAccountCreateWithDelegation: &AccountCreateWithDelegationOperation{},
-	TypeFillConvertRequest:          &FillConvertRequestOperation{},      //Virtual Operation
-	TypeAuthorReward:                &AuthorRewardOperation{},            //Virtual Operation
-	TypeCurationReward:              &CurationRewardOperation{},          //Virtual Operation
-	TypeCommentReward:               &CommentRewardOperation{},           //Virtual Operation
-	TypeLiquidityReward:             &LiquidityRewardOperation{},         //Virtual Operation
-	TypeInterest:                    &InterestOperation{},                //Virtual Operation
-	TypeFillVestingWithdraw:         &FillVestingWithdrawOperation{},     //Virtual Operation
-	TypeFillOrder:                   &FillOrderOperation{},               //Virtual Operation
-	TypeShutdownWitness:             &ShutdownWitnessOperation{},         //Virtual Operation
-	TypeFillTransferFromSavings:     &FillTransferFromSavingsOperation{}, //Virtual Operation
-	TypeHardfork:                    &HardforkOperation{},                //Virtual Operation
-	TypeCommentPayoutUpdate:         &CommentPayoutUpdateOperation{},     //Virtual Operation
-	TypeReturnVestingDelegation:     &ReturnVestingDelegationOperation{}, //Virtual Operation
-	TypeCommentBenefactorReward:     &CommentBenefactorRewardOperation{}, //Virtual Operation
+	TypeVote:              &VoteOperation{},
+	TypeComment:           &CommentOperation{},
+	TypeTransfer:          &TransferOperation{},
+	TypeTransferToVesting: &TransferToVestingOperation{},
+	TypeWithdrawVesting:   &WithdrawVestingOperation{},
+	TypeLimitOrderCreate:  &LimitOrderCreateOperation{},
+	TypeLimitOrderCancel:  &LimitOrderCancelOperation{},
+	TypeFeedPublish:       &FeedPublishOperation{},
+	TypeConvert:           &ConvertOperation{},
+	TypeAccountCreate:     &AccountCreateOperation{},
+	TypeAccountUpdate:     &AccountUpdateOperation{},
+	// TypeWitnessUpdate:  &WitnessUpdateOperation{},
+	TypeAccountWitnessVote:  &AccountWitnessVoteOperation{},
+	TypeAccountWitnessProxy: &AccountWitnessProxyOperation{},
+	TypePOW:                 &POWOperation{},
+	// TypeCustom:           &CustomOperation{},
+	TypeReportOverProduction: &ReportOverProductionOperation{},
+	TypeDeleteComment:        &DeleteCommentOperation{},
+	TypeCustomJSON:           &CustomJSONOperation{},
+	TypeCommentOptions:       &CommentOptionsOperation{},
+	// TypeSetWithdrawVestingRoute: &SetWithdrawVestingRouteOperation{},
+	// TypeLimitOrderCreate2:       &LimitOrderCreate2Operation{},
+	// TypeChallengeAuthority:      &ChallengeAuthorityOperation{},
+	// TypeProveAuthority:          &ProveAuthorityOperation{},
+	// TypeRequestAccountRecovery:  &RequestAccountRecoveryOperation{},
+	// TypeRecoverAccount:          &RecoverAccountOperation{},
+	// TypeChangeRecoveryAccount:   &ChangeRecoverAccountOperation{},
+	// TypeEscrowTransfer:          &EscrowTransferOperation{},
+	// TypeEscrowDispute:           &EscrowDisputeOperation{},
+	// TypeEscrowRelease:           &EescrowReleaseOperation{},
+	// TypePOW2:                    &POW2Operation{},
 }
 
 // Operation represents an operation stored in a transaction.
@@ -85,10 +59,8 @@ type Operation interface {
 	Data() interface{}
 }
 
-//Operations structure from the set Operation.
 type Operations []Operation
 
-//UnmarshalJSON unpacking the JSON parameter in the Operations type.
 func (ops *Operations) UnmarshalJSON(data []byte) error {
 	var tuples []*operationTuple
 	if err := json.Unmarshal(data, &tuples); err != nil {
@@ -104,7 +76,6 @@ func (ops *Operations) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-//MarshalJSON function for packing the Operations type in JSON.
 func (ops Operations) MarshalJSON() ([]byte, error) {
 	tuples := make([]*operationTuple, 0, len(ops))
 	for _, op := range ops {
@@ -113,7 +84,7 @@ func (ops Operations) MarshalJSON() ([]byte, error) {
 			Data: op.Data().(Operation),
 		})
 	}
-	return JSONMarshal(tuples)
+	return json.Marshal(tuples)
 }
 
 type operationTuple struct {
@@ -121,15 +92,13 @@ type operationTuple struct {
 	Data Operation
 }
 
-//MarshalJSON function for packing the operationTuple type in JSON.
 func (op *operationTuple) MarshalJSON() ([]byte, error) {
-	return JSONMarshal([]interface{}{
+	return json.Marshal([]interface{}{
 		op.Type,
 		op.Data,
 	})
 }
 
-//UnmarshalJSON unpacking the JSON parameter in the operationTuple type.
 func (op *operationTuple) UnmarshalJSON(data []byte) error {
 	// The operation object is [opType, opBody].
 	raw := make([]*json.RawMessage, 2)
@@ -165,13 +134,4 @@ func (op *operationTuple) UnmarshalJSON(data []byte) error {
 	op.Type = opType
 	op.Data = opData
 	return nil
-}
-
-//JSONMarshal the function of packing with the processing of HTML tags.
-func JSONMarshal(t interface{}) ([]byte, error) {
-	buffer := &bytes.Buffer{}
-	encoder := json.NewEncoder(buffer)
-	encoder.SetEscapeHTML(false)
-	err := encoder.Encode(t)
-	return buffer.Bytes(), err
 }

@@ -5,7 +5,7 @@
  [![GoDoc](https://godoc.org/github.com/KLYE-Dev/hiverpc-go?status.svg)](https://godoc.org/github.com/KLYE-Dev/hiverpc-go)
  [![Go Report Card](https://goreportcard.com/badge/github.com/KLYE-Dev/hiverpc-go)](https://goreportcard.com/report/github.com/KLYE-Dev/hiverpc-go)
 
- Golang RPC client library for [Hive](https://hiveit.com).
+ Golang RPC client library for [Hive](https://hive.com).
 
  ## Usage
 
@@ -69,7 +69,7 @@
  			lastBlock++
  		}
 
- 		// Sleep for HIVEIT_BLOCK_INTERVAL seconds before the next iteration.
+ 		// Sleep for HIVE_BLOCK_INTERVAL seconds before the next iteration.
  		time.Sleep(time.Duration(config.BlockInterval) * time.Second)
  	}
  ```

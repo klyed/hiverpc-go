@@ -7,18 +7,16 @@ import (
 	"encoding/hex"
 
 	// RPC
-	"github.com/KLYE-Dev/hiverpc-go/types"
+	"github.com/klyed/hiverpc-go/types"
 
 	// Vendor
 	"github.com/pkg/errors"
 )
 
-//RefBlockNum function returns blockNumber
-func RefBlockNum(blockNumber uint32) types.UInt16 {
+func RefBlockNum(blockNumber types.UInt32) types.UInt16 {
 	return types.UInt16(blockNumber)
 }
 
-//RefBlockPrefix function returns block prefix
 func RefBlockPrefix(blockID string) (types.UInt32, error) {
 	// Block ID is hex-encoded.
 	rawBlockID, err := hex.DecodeString(blockID)

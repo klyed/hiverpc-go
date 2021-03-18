@@ -8,31 +8,34 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"time"
+	"unsafe"
 
 	// RPC
-	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
-	"github.com/KLYE-Dev/hiverpc-go/types"
+	"github.com/klyed/hiverpc-go/encoding/transaction"
+	"github.com/klyed/hiverpc-go/types"
 
 	// Vendor
 	"github.com/pkg/errors"
 )
 
-//SignedTransaction structure of a signed transaction
+// #cgo LDFLAGS: -lsecp256k1
+// #include <stdlib.h>
+// #include "signing.h"
+import "C"
+
 type SignedTransaction struct {
 	*types.Transaction
 }
 
-//NewSignedTransaction initialization of a new signed transaction
 func NewSignedTransaction(tx *types.Transaction) *SignedTransaction {
 	if tx.Expiration == nil {
-		expiration := time.Now().Add(30 * time.Second).UTC()
-		tx.Expiration = &types.Time{Time: &expiration}
+		expiration := time.Now().Add(30 * time.Second)
+		tx.Expiration = &types.Time{&expiration}
 	}
 
 	return &SignedTransaction{tx}
 }
 
-//Serialize function serializes a transaction
 func (tx *SignedTransaction) Serialize() ([]byte, error) {
 	var b bytes.Buffer
 	encoder := transaction.NewEncoder(&b)
@@ -43,14 +46,13 @@ func (tx *SignedTransaction) Serialize() ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-//Digest function that returns a digest from a serialized transaction
-func (tx *SignedTransaction) Digest(chain string) ([]byte, error) {
+func (tx *SignedTransaction) Digest(chain *Chain) ([]byte, error) {
 	var msgBuffer bytes.Buffer
 
 	// Write the chain ID.
-	rawChainID, err := hex.DecodeString(chain)
+	rawChainID, err := hex.DecodeString(chain.ID)
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to decode chain ID: %v", chain)
+		return nil, errors.Wrapf(err, "failed to decode chain ID: %v", chain.ID)
 	}
 
 	if _, err := msgBuffer.Write(rawChainID); err != nil {
@@ -72,34 +74,105 @@ func (tx *SignedTransaction) Digest(chain string) ([]byte, error) {
 	return digest[:], nil
 }
 
-//Sign function directly generating transaction signature
-func (tx *SignedTransaction) Sign(privKeys [][]byte, chain string) error {
-	var buf bytes.Buffer
-	chainid, errdec := hex.DecodeString(chain)
-	if errdec != nil {
-		return errdec
-	}
-
-	txRaw, err := tx.Serialize()
+func (tx *SignedTransaction) Sign(privKeys [][]byte, chain *Chain) error {
+	digest, err := tx.Digest(chain)
 	if err != nil {
 		return err
 	}
 
-	buf.Write(chainid)
-	buf.Write(txRaw)
-	data := buf.Bytes()
-	//msg_sha := crypto.Sha256(buf.Bytes())
+	// Sign.
+	cDigest := C.CBytes(digest)
+	defer C.free(cDigest)
 
-	var sigsHex []string
-
-	for _, privB := range privKeys {
-		sigBytes, err := tx.SignSingle(privB, data)
-		if err != nil {
-			return err
+	cKeys := make([]unsafe.Pointer, 0, len(privKeys))
+	for _, key := range privKeys {
+		cKeys = append(cKeys, C.CBytes(key))
+	}
+	defer func() {
+		for _, cKey := range cKeys {
+			C.free(cKey)
 		}
-		sigsHex = append(sigsHex, hex.EncodeToString(sigBytes))
+	}()
+
+	sigs := make([][]byte, 0, len(privKeys))
+	for _, cKey := range cKeys {
+		var (
+			signature [64]byte
+			recid     C.int
+		)
+
+		code := C.sign_transaction(
+			(*C.uchar)(cDigest), (*C.uchar)(cKey), (*C.uchar)(&signature[0]), &recid)
+		if code == 0 {
+			return errors.New("sign_transaction returned 0")
+		}
+
+		sig := make([]byte, 65)
+		sig[0] = byte(recid)
+		copy(sig[1:], signature[:])
+
+		sigs = append(sigs, sig)
+	}
+
+	// Set the signature array in the transaction.
+	sigsHex := make([]string, 0, len(sigs))
+	for _, sig := range sigs {
+		sigsHex = append(sigsHex, hex.EncodeToString(sig))
 	}
 
 	tx.Transaction.Signatures = sigsHex
 	return nil
+}
+
+func (tx *SignedTransaction) Verify(pubKeys [][]byte, chain *Chain) (bool, error) {
+	// Compute the digest, again.
+	digest, err := tx.Digest(chain)
+	if err != nil {
+		return false, err
+	}
+
+	cDigest := C.CBytes(digest)
+	defer C.free(cDigest)
+
+	// Make sure to free memory.
+	cSigs := make([]unsafe.Pointer, 0, len(tx.Signatures))
+	defer func() {
+		for _, cSig := range cSigs {
+			C.free(cSig)
+		}
+	}()
+
+	// Collect verified public keys.
+	pubKeysFound := make([][]byte, len(pubKeys))
+	for i, signature := range tx.Signatures {
+		sig, err := hex.DecodeString(signature)
+		if err != nil {
+			return false, errors.Wrap(err, "failed to decode signature hex")
+		}
+
+		recoverParameter := sig[0] - 27 - 4
+		sig = sig[1:]
+
+		cSig := C.CBytes(sig)
+		cSigs = append(cSigs, cSig)
+
+		var publicKey [33]byte
+
+		code := C.verify_recoverable_signature(
+			(*C.uchar)(cDigest),
+			(*C.uchar)(cSig),
+			(C.int)(recoverParameter),
+			(*C.uchar)(&publicKey[0]),
+		)
+		if code == 1 {
+			pubKeysFound[i] = publicKey[:]
+		}
+	}
+
+	for i := range pubKeys {
+		if !bytes.Equal(pubKeysFound[i], pubKeys[i]) {
+			return false, nil
+		}
+	}
+	return true, nil
 }

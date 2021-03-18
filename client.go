@@ -1,72 +1,51 @@
-package client
+package rpc
 
 import (
-	"net/url"
-
-	"github.com/KLYE-Dev/hiverpc-go/api"
-	"github.com/KLYE-Dev/hiverpc-go/transports"
-	"github.com/KLYE-Dev/hiverpc-go/transports/http"
-	"github.com/KLYE-Dev/hiverpc-go/transports/websocket"
-	"github.com/pkg/errors"
+	// RPC
+	"github.com/klyed/hiverpc-go/apis/database"
+	"github.com/klyed/hiverpc-go/apis/follow"
+	"github.com/klyed/hiverpc-go/apis/login"
+	"github.com/klyed/hiverpc-go/networkbroadcast"
+	"github.com/klyed/hiverpc-go/interfaces"
 )
 
-var (
-	ErrInitializeTransport = errors.New("Failed to initialize transport.")
-)
-
-// Client can be used to access HIVE remote APIs.
-// There is a public field for every HIVE API available,
+// Client can be used to access Hive remote APIs.
+//
+// There is a public field for every Hive API available,
 // e.g. Client.Database corresponds to database_api.
 type Client struct {
-	cc transports.CallCloser
+	cc interfaces.CallCloser
 
-	chainID string
-
-	AsyncProtocol bool
+	// Login represents login_api.
+	Login *login.API
 
 	// Database represents database_api.
-	API *api.API
+	Database *database.API
 
-	// Current keys for operations
-	CurrentKeys *Keys
+	// Follow represents follow_api.
+	Follow *follow.API
+
+	// NetworkBroadcast represents network_broadcast_api.
+	NetworkBroadcast *networkbroadcast.API
 }
 
 // NewClient creates a new RPC client that use the given CallCloser internally.
-// Initialize only server present API. Absent API initialized as nil value.
-func NewClient(s string) (*Client, error) {
-	// Parse URL
-	u, err := url.Parse(s)
+func NewClient(cc interfaces.CallCloser) (*Client, error) {
+	client := &Client{cc: cc}
+	client.Login = login.NewAPI(client.cc)
+	client.Database = database.NewAPI(client.cc)
+
+	followAPI, err := follow.NewAPI(client.cc)
 	if err != nil {
 		return nil, err
 	}
+	client.Follow = followAPI
 
-	// Initializing Transport
-	var call transports.CallCloser
-	switch u.Scheme {
-	case "wss", "ws":
-		call, err = websocket.NewTransport(s)
-		if err != nil {
-			return nil, err
-		}
-	case "https", "http":
-		call, err = http.NewTransport(s)
-		if err != nil {
-			return nil, err
-		}
-	default:
-		return nil, ErrInitializeTransport
-	}
-	client := &Client{cc: call}
-
-	client.AsyncProtocol = false
-
-	client.API = api.NewAPI(client.cc)
-
-	chainID, err := client.API.GetConfig()
+	networkBroadcastAPI, err := networkbroadcast.NewAPI(client.cc)
 	if err != nil {
 		return nil, err
 	}
-	client.chainID = chainID.ChainID
+	client.NetworkBroadcast = networkBroadcastAPI
 
 	return client, nil
 }

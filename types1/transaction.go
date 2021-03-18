@@ -1,11 +1,9 @@
 package types
 
 import (
-	// RPC
-	"github.com/klyed/hiverpc-go/encoding/transaction"
+	"errors"
 
-	// Vendor
-	"github.com/pkg/errors"
+	"github.com/KLYE-Dev/hiverpc-go/encoding/transaction"
 )
 
 // Transaction represents a blockchain transaction.

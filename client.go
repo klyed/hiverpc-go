@@ -5,7 +5,7 @@ import (
 	"github.com/klyed/hiverpc-go/apis/database"
 	"github.com/klyed/hiverpc-go/apis/follow"
 	"github.com/klyed/hiverpc-go/apis/login"
-	"github.com/klyed/hiverpc-go/apis/networkbroadcast"
+	"github.com/klyed/hiverpc-go/networkbroadcast"
 	"github.com/klyed/hiverpc-go/interfaces"
 )
 

@@ -22,7 +22,7 @@ func main() {
 
 func run() (err error) {
 	// Process flags.
-	flagAddress := flag.String("rpc_endpoint", "ws://localhost:8090", "hived RPC endpoint address")
+	flagAddress := flag.String("rpc_endpoint", "ws://localhost:8090", "steemd RPC endpoint address")
 	flagReconnect := flag.Bool("reconnect", false, "enable auto-reconnect mode")
 	flag.Parse()
 

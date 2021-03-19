@@ -413,7 +413,7 @@ type CommentOptionsOperation struct {
 	Author               string        `json:"author"`
 	Permlink             string        `json:"permlink"`
 	MaxAcceptedPayout    string        `json:"max_accepted_payout"`
-	PercentHiveDollars  uint16        `json:"percent_hive_dollars"`
+	PercentSteemDollars  uint16        `json:"percent_hive_dollars"`
 	AllowVotes           bool          `json:"allow_votes"`
 	AllowCurationRewards bool          `json:"allow_curation_rewards"`
 	Extensions           []interface{} `json:"extensions"`

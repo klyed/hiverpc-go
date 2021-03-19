@@ -32,14 +32,14 @@ type DynamicGlobalProperties struct {
 	CurrentAslot             *types.Int   `json:"current_aslot"`
 	LastIrreversibleBlockNum uint32       `json:"last_irreversible_block_num"`
 	TotalVestingShares       string       `json:"total_vesting_shares"`
-	TotalVersingFundHive    string       `json:"total_vesting_fund_hive"`
+	TotalVersingFundSteem    string       `json:"total_vesting_fund_steem"`
 	HeadBlockID              string       `json:"head_block_id"`
 	HeadBlockNumber          types.UInt32 `json:"head_block_number"`
 	VirtualSupply            string       `json:"virtual_supply"`
 	ConfidentialSupply       string       `json:"confidential_supply"`
 	ConfidentialHBDSupply    string       `json:"confidential_hbd_supply"`
-	TotalRewardFundHive     string       `json:"total_reward_fund_hive"`
-	TotalActivityFundHive   string       `json:"total_activity_fund_hive"`
+	TotalRewardFundSteem     string       `json:"total_reward_fund_steem"`
+	TotalActivityFundSteem   string       `json:"total_activity_fund_steem"`
 	TotalActivityFundShares  *types.Int   `json:"total_activity_fund_shares"`
 	HBDInterestRate          *types.Int   `json:"hbd_interest_rate"`
 	MaxVirtualBandwidth      *types.Int   `json:"max_virtual_bandwidth"`

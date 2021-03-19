@@ -62,7 +62,7 @@ func TestTransaction_Digest(t *testing.T) {
 
 	stx := NewSignedTransaction(tx)
 
-	digest, err := stx.Digest(SteemChain)
+	digest, err := stx.Digest(HiveChain)
 	if err != nil {
 		t.Error(err)
 	}
@@ -80,7 +80,7 @@ func TestTransaction_SignAndVerify(t *testing.T) {
 	}()
 
 	stx := NewSignedTransaction(tx)
-	if err := stx.Sign(privateKeys, SteemChain); err != nil {
+	if err := stx.Sign(privateKeys, HiveChain); err != nil {
 		t.Error(err)
 	}
 
@@ -88,7 +88,7 @@ func TestTransaction_SignAndVerify(t *testing.T) {
 		t.Error("expected signatures not appended to the transaction")
 	}
 
-	ok, err := stx.Verify(publicKeys, SteemChain)
+	ok, err := stx.Verify(publicKeys, HiveChain)
 	if err != nil {
 		t.Error(err)
 	}

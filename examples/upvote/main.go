@@ -29,7 +29,7 @@ func main() {
 
 func run() (err error) {
 	// Process flags.
-	flagAddress := flag.String("rpc_endpoint", "ws://localhost:8090", "steemd RPC endpoint address")
+	flagAddress := flag.String("rpc_endpoint", "https://api.hive-roller.com", "steemd RPC endpoint address")
 	flag.Parse()
 
 	url := *flagAddress
@@ -118,7 +118,7 @@ func run() (err error) {
 	}
 	privKeys := [][]byte{privKey}
 
-	if err := tx.Sign(privKeys, transactions.SteemChain); err != nil {
+	if err := tx.Sign(privKeys, transactions.HiveChain); err != nil {
 		return err
 	}
 

@@ -4,8 +4,8 @@ type Chain struct {
 	ID string
 }
 
-var SteemChain = &Chain{
-	ID: "0000000000000000000000000000000000000000000000000000000000000000",
+var HiveChain = &Chain{
+	ID: "beeab0de00000000000000000000000000000000000000000000000000000000",
 }
 
 var TestChain = &Chain{

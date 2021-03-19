@@ -40,7 +40,7 @@ for more complete and ready to use examples.
 
 ```go
 // Instantiate the WebSocket transport.
-t, _ := websocket.NewTransport("ws://localhost:8090")
+t, _ := websocket.NewTransport("https://api.hive-roller.com")
 
 // Use the transport to create an RPC client.
 client, _ := rpc.NewClient(t)

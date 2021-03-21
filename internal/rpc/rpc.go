@@ -15,7 +15,7 @@ func GetNumericAPIID(caller interfaces.Caller, apiName string) (int, error) {
 	params := []interface{}{apiName}
 
 	var resp json.RawMessage
-	if err := caller.Call("call", []interface{}{params}, &resp); err != nil {
+	if err := caller.Call("call", []interface{}{1, "get_api_by_name", params}, &resp); err != nil {
 		return 0, err
 	}
 

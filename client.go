@@ -17,13 +17,13 @@ type Client struct {
 	cc interfaces.CallCloser
 
 	// Login represents login_api.
-	Login *login.API
+	//Login *login.API
 
 	// Database represents database_api.
-	Database *database.API
+	Database *condenser.API
 
 	// Follow represents follow_api.
-	Follow *follow.API
+	//Follow *follow.API
 
 	// NetworkBroadcast represents network_broadcast_api.
 	NetworkBroadcast *networkbroadcast.API
@@ -32,14 +32,14 @@ type Client struct {
 // NewClient creates a new RPC client that use the given CallCloser internally.
 func NewClient(cc interfaces.CallCloser) (*Client, error) {
 	client := &Client{cc: cc}
-	client.Login = login.NewAPI(client.cc)
+	//client.Login = login.NewAPI(client.cc)
 	client.Database = database.NewAPI(client.cc)
 
-	followAPI, err := follow.NewAPI(client.cc)
+	//followAPI, err := follow.NewAPI(client.cc)
 	if err != nil {
 		return nil, err
 	}
-	client.Follow = followAPI
+	//client.Follow = followAPI
 
 	networkBroadcastAPI, err := networkbroadcast.NewAPI(client.cc)
 	if err != nil {

@@ -17,7 +17,7 @@ const (
 )
 
 var customJSONDataObjects = map[string]interface{}{
-	TypeFollow: &FollowOperation{},
+	//TypeFollow: &FollowOperation{},
 }
 
 // FC_REFLECT( hive::chain::custom_json_operation,

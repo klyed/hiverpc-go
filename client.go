@@ -3,7 +3,6 @@ package rpc
 import (
 	// RPC
 	"github.com/klyed/hiverpc-go/apis/database"
-	"github.com/klyed/hiverpc-go/apis/login"
 	"github.com/klyed/hiverpc-go/apis/networkbroadcast"
 	"github.com/klyed/hiverpc-go/interfaces"
 )
@@ -16,7 +15,7 @@ type Client struct {
 	cc interfaces.CallCloser
 
 	// Login represents login_api.
-	Login *login.API
+	//Login *login.API
 
 	// Database represents database_api.
 	Database *database.API
@@ -34,7 +33,6 @@ func NewClient(cc interfaces.CallCloser) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	client.Follow = followAPI
 
 	networkBroadcastAPI, err := networkbroadcast.NewAPI(client.cc)
 	if err != nil {

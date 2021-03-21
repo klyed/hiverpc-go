@@ -12,7 +12,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-const APIID = "follow_api"
+const APIID = "follow"
 
 type API struct {
 	id     int

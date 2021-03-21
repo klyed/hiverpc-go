@@ -12,10 +12,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-const (
-	TypeFollow = "follow"
-)
-
 var customJSONDataObjects = map[string]interface{}{
 	//TypeFollow: &FollowOperation{},
 }

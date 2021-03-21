@@ -9,9 +9,9 @@ import (
 	"github.com/klyed/hiverpc-go/interfaces"
 )
 
-// Client can be used to access Hive remote APIs.
+// Client can be used to access Steem remote APIs.
 //
-// There is a public field for every Hive API available,
+// There is a public field for every Steem API available,
 // e.g. Client.Database corresponds to database_api.
 type Client struct {
 	cc interfaces.CallCloser

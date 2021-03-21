@@ -35,11 +35,11 @@ func NewClient(cc interfaces.CallCloser) (*Client, error) {
 	client.Login = login.NewAPI(client.cc)
 	client.Database = database.NewAPI(client.cc)
 
-	//followAPI, err := follow.NewAPI(client.cc)
+	followAPI, err := follow.NewAPI(client.cc)
 	if err != nil {
 		return nil, err
 	}
-	//client.Follow = followAPI
+	client.Follow = followAPI
 
 	networkBroadcastAPI, err := networkbroadcast.NewAPI(client.cc)
 	if err != nil {

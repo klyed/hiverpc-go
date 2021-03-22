@@ -16,19 +16,19 @@ import (
 const APIID = "network_broadcast_api"
 
 type API struct {
-	id     int
+	method string
+	params string
 	caller interfaces.Caller
 }
 
-func NewAPI(caller interfaces.Caller) (*API, error) {
-	id, err := rpc.GetNumericAPIID(caller, APIID)
-	if err != nil {
-		return nil, err
-	}
-	return &API{id, caller}, nil
-}
+func NewAPI(method string, params interface{}, caller interfaces.Caller) (*API, error) {
+	//id, err := rpc.GetNumericAPIID(caller, APIID)
+	//if err != nil {
+	//	return nil, err
+	//}
+	return &API{method, params, caller}
 
-func (api *API) call(method string, params, resp interface{}) error {
+func (api *API) call(method string, params interface{}, resp interface{}) (error) {
 	return api.caller.Call("call", []interface{}{api.id, method, params}, resp)
 }
 

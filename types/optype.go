@@ -40,6 +40,7 @@ const (
 	TypeEscrowDispute           OpType = "escrow_dispute"
 	TypeEscrowRelease           OpType = "escrow_release"
 	TypePOW2                    OpType = "pow2"
+	TypeHSC											OpType = "custom_binary"
 )
 
 var opTypes = [...]OpType{
@@ -74,6 +75,7 @@ var opTypes = [...]OpType{
 	TypeEscrowDispute,
 	TypeEscrowRelease,
 	TypePOW2,
+	TypeHSC,
 }
 
 // opCodes keeps mapping operation type -> operation code.

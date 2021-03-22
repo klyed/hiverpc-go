@@ -11,18 +11,23 @@ import (
 	"github.com/klyed/hiverpc-go/types"
 )
 
-const (
-	APIID         = "database_api"
-	NumbericAPIID = 0
-)
-
 type API struct {
+	method string
+	params []interface{}
 	caller interfaces.Caller
 }
 
-func NewAPI(caller interfaces.Caller) *API {
-	return &API{caller}
+func NewAPI(method string, params []interface{}, caller interfaces.Caller) *API { //interfaces.Caller
+
+	//fixedup := []interface{}{method, params}
+	return &API{method, params, caller}
 }
+
+func (api *API) call(method string, params interface{}, resp interface{}) error {
+	method = "call"
+	return api.caller.Call(method, params, resp)
+}
+
 
 /*
    // Subscriptions
@@ -45,6 +50,8 @@ func NewAPI(caller interfaces.Caller) *API {
    (get_discussions_by_hot)
    (get_recommended_for)
 */
+
+
 
 func (api *API) GetTrendingTagsRaw(afterTag string, limit uint32) (*json.RawMessage, error) {
 	return call.Raw(api.caller, "get_trending_tags", []interface{}{afterTag, limit})
@@ -118,7 +125,7 @@ func (api *API) GetBlockRaw(blockNum uint32) (*json.RawMessage, error) {
 
 func (api *API) GetBlock(blockNum uint32) (*Block, error) {
 	var resp Block
-	if err := api.caller.Call("get_block", []uint32{blockNum}, &resp); err != nil {
+	if err := api.caller.Call("condenser_api.get_block", []uint32{blockNum}, &resp); err != nil {
 		return nil, err
 	}
 	resp.Number = blockNum
@@ -163,7 +170,7 @@ func (api *API) GetConfigRaw() (*json.RawMessage, error) {
 
 func (api *API) GetConfig() (*Config, error) {
 	var resp Config
-	if err := api.caller.Call("get_config", call.EmptyParams, &resp); err != nil {
+	if err := api.caller.Call("condenser_api.get_config", call.EmptyParams, &resp); err != nil {
 		return nil, err
 	}
 	return &resp, nil
@@ -175,7 +182,7 @@ func (api *API) GetDynamicGlobalPropertiesRaw() (*json.RawMessage, error) {
 
 func (api *API) GetDynamicGlobalProperties() (*DynamicGlobalProperties, error) {
 	var resp DynamicGlobalProperties
-	if err := api.caller.Call("get_dynamic_global_properties", call.EmptyParams, &resp); err != nil {
+	if err := api.caller.Call("condenser_api.get_dynamic_global_properties", call.EmptyParams, &resp); err != nil {
 		return nil, err
 	}
 	return &resp, nil

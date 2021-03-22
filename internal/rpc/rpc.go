@@ -11,21 +11,21 @@ import (
 	"github.com/pkg/errors"
 )
 
-func GetNumericAPIID(caller interfaces.Caller, apiName string) (int, error) {
+func GetNumericAPIID(apiName string, params []interface, data []interface, caller interfaces.Caller) (*json.RawMessage, error) {
 	params := []interface{}{apiName}
 
 	var resp json.RawMessage
-	if err := caller.Call("call", []interface{}{1, "get_api_by_name", params}, &resp); err != nil {
-		return 0, err
+	if err := caller.Call("call", []interface{}{1, apiName, params, data}, &resp); err != nil {
+		return err, err
 	}
 
-	if string(resp) == "null" {
-		return 0, errors.Errorf("API not available: %v", apiName)
-	}
+	//if string(resp) == "null" {
+	//	return 0, errors.Errorf("API not available: %v", apiName)
+	//}
 
-	var id int
-	if err := json.Unmarshal([]byte(resp), &id); err != nil {
-		return 0, err
+	var id string
+	if err := json.Unmarshal(string(resp), &id); err != nil {
+		return nil, err
 	}
 	return id, nil
 }

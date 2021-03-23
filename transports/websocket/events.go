@@ -10,7 +10,7 @@ type ConnectingEvent struct {
 }
 
 func (e *ConnectingEvent) String() string {
-	return fmt.Sprintf("CONNECTING [url=%v]", e.URL)
+	return fmt.Sprintf("HIVEOP: CONNECTING [url=%v]", e.URL)
 }
 
 // ConnectedEvent is emitted when the WebSocket connection is established.
@@ -19,7 +19,7 @@ type ConnectedEvent struct {
 }
 
 func (e *ConnectedEvent) String() string {
-	return fmt.Sprintf("CONNECTED [url=%v]", e.URL)
+	return fmt.Sprintf("HIVEOP: CONNECTED [url=%v]", e.URL)
 }
 
 // DisconnectedEvent is emitted when the WebSocket connection is lost.
@@ -29,5 +29,5 @@ type DisconnectedEvent struct {
 }
 
 func (e *DisconnectedEvent) String() string {
-	return fmt.Sprintf("DISCONNECTED [url=%v, err=%v]", e.URL, e.Err)
+	return fmt.Sprintf("HIVEOP: DISCONNECTED [url=%v, err=%v]", e.URL, e.Err)
 }

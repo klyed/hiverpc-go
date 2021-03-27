@@ -40,7 +40,7 @@ const (
 	TypeEscrowDispute           OpType = "escrow_dispute"
 	TypeEscrowRelease           OpType = "escrow_release"
 	TypePOW2                    OpType = "pow2"
-	TypeHSC											OpType = "custom_binary"
+	TypeHSC                     OpType = "custom_binary"
 )
 
 var opTypes = [...]OpType{

@@ -28,7 +28,6 @@ func (api *API) call(method string, params interface{}, resp interface{}) error 
 	return api.caller.Call(method, params, resp)
 }
 
-
 /*
    // Subscriptions
    (set_subscribe_callback)
@@ -50,8 +49,6 @@ func (api *API) call(method string, params interface{}, resp interface{}) error 
    (get_discussions_by_hot)
    (get_recommended_for)
 */
-
-
 
 func (api *API) GetTrendingTagsRaw(afterTag string, limit uint32) (*json.RawMessage, error) {
 	return call.Raw(api.caller, "get_trending_tags", []interface{}{afterTag, limit})

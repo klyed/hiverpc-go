@@ -32,7 +32,7 @@ var dataObjects = map[OpType]Operation{
 	TypeDeleteComment:        &DeleteCommentOperation{},
 	TypeCustomJSON:           &CustomJSONOperation{},
 	TypeCommentOptions:       &CommentOptionsOperation{},
-	TypeHSC:									&HscOperation{},
+	TypeHSC:                  &HscOperation{},
 	// TypeSetWithdrawVestingRoute: &SetWithdrawVestingRouteOperation{},
 	// TypeLimitOrderCreate2:       &LimitOrderCreate2Operation{},
 	// TypeChallengeAuthority:      &ChallengeAuthorityOperation{},

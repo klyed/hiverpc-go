@@ -5,6 +5,7 @@ import (
 	"github.com/klyed/hiverpc-go/apis/database"
 	//"github.com/klyed/hiverpc-go/apis/networkbroadcast"
 	"github.com/klyed/hiverpc-go/interfaces"
+	"time"
 )
 
 // Client can be used to access Steem remote APIs.
@@ -17,6 +18,22 @@ type Client struct {
 	Database *database.API
 
 }
+
+func (client *Client) Deadline() (deadline time.Time, ok bool) {
+	panic("implement me")
+	return deadline, true
+}
+
+func (client *Client) Done() <-chan struct{} {
+	panic("implement me")
+	return client.cc.Close()
+}
+
+func (client *Client) Err() error {
+	panic("implement me")
+	return client.cc.Close()
+}
+
 
 // NewClient creates a new RPC client that use the given CallCloser internally.
 func NewClient(cc interfaces.CallCloser) (*Client, error) {

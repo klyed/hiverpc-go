@@ -24,7 +24,7 @@ func (client *Client) Deadline() (deadline time.Time, ok bool) {
 	return deadline, true
 }
 
-func (client *Client) Done() <-chan struct{} {
+func (client *Client) Done() *Client{
 	panic("implement me")
 	return client.cc.Close()
 }

@@ -25,8 +25,8 @@ func (Client *Client) Done() interfaces.CallCloser {
 	return Client.cc
 }
 
-func (Client *Client) Err() error {
-	return Client.Close()
+func (Client *Client) Err() interfaces.CallCloser {
+	return Client.Done()
 }
 
 // NewClient creates a new RPC client that use the given CallCloser internally.
